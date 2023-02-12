@@ -37,7 +37,6 @@ export function CreateForm({ close }: { close: () => void }) {
         onChange={(e) =>
           setNewDate(new Date(e.currentTarget.value).toLocaleDateString("ru"))
         }
-        name="date"
         size="small"
         type={"date"}
       />

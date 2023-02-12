@@ -174,7 +174,7 @@ export const ChangeCompleted: ActionCreator<{
 
 export const CreateNewTodo: ActionCreator<{
   type: string;
-  payload: { data: TNewToDoObject };
+  payload: { data: TNewToDoElement; id: number };
 }> = (payload) => {
   return { type: "CREATE_TODO", payload: payload };
 };
@@ -204,10 +204,13 @@ export function toDoReducer(state = initialState, action: AnyAction) {
 
       return newState;
     case "CREATE_TODO":
-      newState.push({
-        ...action.payload.data,
-        id: newState[newState.length - 1].id + 1,
-      });
+      newState = [...state];
+
+      const indexToPush = newState.findIndex(
+        (el) => el.id === action.payload.id
+      );
+
+      newState[indexToPush].elements.push(action.payload.data);
 
       return newState;
     case "CREATE_DATE":

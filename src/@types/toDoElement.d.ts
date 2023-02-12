@@ -12,3 +12,5 @@ interface IToDoObject {
 }
 
 type TNewToDoObject = Omit<IToDoObject, "id">;
+
+type TNewToDoElement = Omit<IToDoElement, "id">;

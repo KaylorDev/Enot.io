@@ -6,12 +6,15 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { ItemsWrapper, Separator, Title, TitleAndText, Text } from "./style";
 import { useDispatch } from "react-redux";
-import { ChangeCompleted } from "../../store/reducers/toDoReducer";
+import {
+  ChangeCompleted,
+  CreateNewTodo,
+} from "../../store/reducers/toDoReducer";
 import { MUISwitch } from "../../ui/switch/switch";
 import { useMemo, useState } from "react";
 import { getRandomColor } from "../../misc/getRandomColor";
 import { CheckboxWithLabel } from "../../ui/сheckboxes/CheckboxWithLabel";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 type TAccordionProps = {
   toDoId: number;
@@ -25,8 +28,15 @@ type TMUIAccordionItemProps = {
 
 export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
   const [opened, setOpened] = useState(false);
-  const dispatch = useDispatch();
+  const [isCreateFormOpened, setIsCreateFormOpened] = useState(false);
+  const [newTodo, setNewTodo] = useState<TNewToDoElement>({
+    title: "",
+    text: "",
+    completed: false,
+  });
 
+  const dispatch = useDispatch();
+  
   const title = useMemo(() => {
     return getTitleByDate(date);
   }, [date]);
@@ -45,8 +55,12 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
     return `${date} tasks`;
   }
 
-  function create(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  function create(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    toDoId: number
+  ) {
     e.preventDefault();
+    dispatch(CreateNewTodo({ data: newTodo, id: toDoId }));
   }
 
   function MUIAccordionItem({ element }: TMUIAccordionItemProps) {
@@ -115,14 +129,55 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
           {elements.map((element) => (
             <MUIAccordionItem key={element.id} element={element} />
           ))}
-          <Button
-            variant="contained"
-            size="small"
-            color="secondary"
-            onClick={(e) => create(e)}
-          >
-            +
-          </Button>
+          {isCreateFormOpened ? (
+            <>
+              <TextField
+                color="secondary"
+                variant="standard"
+                label="Title"
+                sx={{
+                  "& input": { color: "white" },
+                  "& label": { color: "white" },
+                }}
+                value={newTodo.title}
+                onChange={(e) => {
+                  setNewTodo({ ...newTodo, title: e.target.value });
+                }}
+                size="small"
+              />
+              <TextField
+                color="secondary"
+                variant="standard"
+                label="Text"
+                sx={{
+                  "& input": { color: "white" },
+                  "& label": { color: "white" },
+                }}
+                value={newTodo.text}
+                onChange={(e) => {
+                  setNewTodo({ ...newTodo, text: e.target.value });
+                }}
+                size="small"
+              />
+              <Button
+                variant="contained"
+                size="small"
+                color="secondary"
+                onClick={(e) => create(e, toDoId)}
+              >
+                ADD
+              </Button>
+            </>
+          ) : (
+            <Button
+              variant="contained"
+              size="small"
+              color="secondary"
+              onClick={() => setIsCreateFormOpened(true)}
+            >
+              +
+            </Button>
+          )}
         </ItemsWrapper>
       </AccordionDetails>
     </Accordion>
