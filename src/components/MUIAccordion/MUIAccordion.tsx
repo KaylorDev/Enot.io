@@ -89,8 +89,12 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
           sx={{
             marginLeft: "auto",
             "& .MuiSwitch-track": {
-              backgroundColor: completed ? "#366EFF" : "#10C200",
+              backgroundColor: "#366EFF",
               borderRadius: 26 / 2,
+              opacity: 1,
+            },
+            ".MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+              backgroundColor: "#10C200",
               opacity: 1,
             },
           }}
