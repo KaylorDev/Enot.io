@@ -256,9 +256,10 @@ export function toDoReducer(state = initialState, action: AnyAction) {
       newState = [...state];
 
       const dateIndexForDelete = newState.findIndex(
-        (el) => el.id === action.payload
+        (el) => el.id === action.payload.id
       );
-      delete newState[dateIndexForDelete];
+      newState.splice(dateIndexForDelete, 1);
+
       return newState;
     default:
       return state;

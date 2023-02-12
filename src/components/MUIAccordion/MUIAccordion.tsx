@@ -4,11 +4,13 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { ItemsWrapper, Separator, Title, TitleAndText, Text } from "./style";
 import { useDispatch } from "react-redux";
 import {
   ChangeCompleted,
   CreateNewTodo,
+  DeleteDate,
 } from "../../store/reducers/toDoReducer";
 import { MUISwitch } from "../../ui/switch/switch";
 import { useMemo, useState } from "react";
@@ -69,6 +71,10 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
     });
   }
 
+  function remove(id: number) {
+    dispatch(DeleteDate({ id: id }));
+  }
+
   function MUIAccordionItem({ element }: TMUIAccordionItemProps) {
     const { id, title, text, completed } = element;
 
@@ -124,6 +130,14 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
             <ExpandCircleDownIcon color="action" style={{ color: "white" }} />
           }
         >
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              remove(toDoId);
+            }}
+          >
+            <DeleteIcon htmlColor="#681c23" />
+          </div>
           <Separator color="#A9A9A9" />
           {title}
         </AccordionSummary>
