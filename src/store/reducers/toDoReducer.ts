@@ -205,17 +205,29 @@ export function toDoReducer(state = initialState, action: AnyAction) {
       return newState;
     case "CREATE_TODO":
       newState = [...state];
-
       const indexToPush = newState.findIndex(
         (el) => el.id === action.payload.id
       );
 
-      newState[indexToPush].elements.push(action.payload.data);
+      const maxToDoId = newState[indexToPush].elements.reduce(
+        (prev, current) => {
+          if (+current.id > +prev.id) {
+            return current;
+          } else {
+            return prev;
+          }
+        }
+      ).id;
+
+      newState[indexToPush].elements.push({
+        ...action.payload.data,
+        id: maxToDoId !== -1 ? maxToDoId + 1 : 1,
+      });
 
       return newState;
     case "CREATE_DATE":
       newState = [...state];
-      const maxId = newState.reduce((prev, current) => {
+      const maxElementId = newState.reduce((prev, current) => {
         if (+current.id > +prev.id) {
           return current;
         } else {
@@ -223,7 +235,10 @@ export function toDoReducer(state = initialState, action: AnyAction) {
         }
       }).id;
 
-      newState.unshift({ ...action.payload, id: maxId + 1 });
+      newState.unshift({
+        ...action.payload,
+        id: maxElementId !== -1 ? maxElementId + 1 : 1,
+      });
 
       return newState;
     default:
