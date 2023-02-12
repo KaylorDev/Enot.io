@@ -36,7 +36,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
   });
 
   const dispatch = useDispatch();
-  
+
   const title = useMemo(() => {
     return getTitleByDate(date);
   }, [date]);
@@ -61,6 +61,12 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
   ) {
     e.preventDefault();
     dispatch(CreateNewTodo({ data: newTodo, id: toDoId }));
+    setIsCreateFormOpened(false);
+    setNewTodo({
+      title: "",
+      text: "",
+      completed: false,
+    });
   }
 
   function MUIAccordionItem({ element }: TMUIAccordionItemProps) {
