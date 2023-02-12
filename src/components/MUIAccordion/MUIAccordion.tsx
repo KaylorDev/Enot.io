@@ -183,14 +183,26 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
                 }}
                 size="small"
               />
-              <Button
-                variant="contained"
-                size="small"
-                color="secondary"
-                onClick={(e) => create(e, toDoId)}
-              >
-                ADD
-              </Button>
+              <div style={{ display: "flex", gap: 10 }}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  fullWidth
+                  color="secondary"
+                  onClick={(e) => create(e, toDoId)}
+                >
+                  ADD
+                </Button>
+                <Button
+                  variant="contained"
+                  size="small"
+                  fullWidth
+                  color="secondary"
+                  onClick={() => setIsCreateFormOpened(false)}
+                >
+                  CANCEL
+                </Button>
+              </div>
             </>
           ) : (
             <Button
