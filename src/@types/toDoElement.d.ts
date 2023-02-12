@@ -11,3 +11,4 @@ interface IToDoObject {
   elements: IToDoElement[];
 }
 
+type TNewToDoObject = Omit<IToDoObject, "id">;

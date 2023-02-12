@@ -16,11 +16,15 @@ import { SettingsPopper } from "./SettingPopper/SettingPopper";
 import { useOnClickOutside } from "../../hooks/useClickOutsideComponent";
 import { getNews } from "../../api/newsService";
 import { getRandomInt } from "../../misc/getRandomNumber";
+import { Button } from "@mui/material";
+import Modal from "@mui/material/Modal";
+import { CreateForm } from "./CreateForm/CreateForm";
 
 export function TodoList() {
   const toDos = useSelector((state: IState) => state.todos);
   const { newsStatus } = useSelector((state: IState) => state.settings);
   const [openSettings, setOpenSettings] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [news, setNews] = useState(null);
   const settingsIconReg = useRef(null);
   const popperRef = useRef(null);
@@ -38,6 +42,11 @@ export function TodoList() {
 
   return (
     <Main>
+      <Modal
+        children={<CreateForm />}
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      ></Modal>
       <ContentWrapper>
         <Header>
           <HeaderTitle>To Do</HeaderTitle>
@@ -63,6 +72,13 @@ export function TodoList() {
             />
           ))}
         </ScrollableContent>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setIsModalOpen(true)}
+        >
+          Add new date
+        </Button>
         {newsStatus && news && (
           <Marquee>
             <Article>{news}</Article>

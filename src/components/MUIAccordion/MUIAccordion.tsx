@@ -11,6 +11,7 @@ import { MUISwitch } from "../../ui/switch/switch";
 import { useMemo, useState } from "react";
 import { getRandomColor } from "../../misc/getRandomColor";
 import { CheckboxWithLabel } from "../../ui/сheckboxes/CheckboxWithLabel";
+import { Button } from "@mui/material";
 
 type TAccordionProps = {
   toDoId: number;
@@ -42,6 +43,10 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
     if (tomorrow === date) return "Tomorrow tasks";
 
     return `${date} tasks`;
+  }
+
+  function create(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault();
   }
 
   function MUIAccordionItem({ element }: TMUIAccordionItemProps) {
@@ -110,6 +115,14 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
           {elements.map((element) => (
             <MUIAccordionItem key={element.id} element={element} />
           ))}
+          <Button
+            variant="contained"
+            size="small"
+            color="secondary"
+            onClick={(e) => create(e)}
+          >
+            +
+          </Button>
         </ItemsWrapper>
       </AccordionDetails>
     </Accordion>

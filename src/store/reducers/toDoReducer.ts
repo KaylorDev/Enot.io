@@ -172,11 +172,25 @@ export const ChangeCompleted: ActionCreator<{
   return { type: "CHANGE_COMPLETED", payload: payload };
 };
 
+export const CreateNewTodo: ActionCreator<{
+  type: string;
+  payload: { data: TNewToDoObject };
+}> = (payload) => {
+  return { type: "CREATE_TODO", payload: payload };
+};
+
+export const CreateNewDate: ActionCreator<{
+  type: string;
+  payload: { data: TNewToDoObject };
+}> = (payload) => {
+  return { type: "CREATE_DATE", payload: payload };
+};
+
 export function toDoReducer(state = initialState, action: AnyAction) {
+  let newState = [...state];
+
   switch (action.type) {
     case "CHANGE_COMPLETED":
-      const newState = [...state];
-
       const index = newState.findIndex(
         (element) => element.id === action.payload.objectId
       );
@@ -189,7 +203,26 @@ export function toDoReducer(state = initialState, action: AnyAction) {
         !newState[index].elements[itemIndex].completed;
 
       return newState;
+    case "CREATE_TODO":
+      newState.push({
+        ...action.payload.data,
+        id: newState[newState.length - 1].id + 1,
+      });
 
+      return newState;
+    case "CREATE_DATE":
+      newState = [...state];
+      const maxId = newState.reduce((prev, current) => {
+        if (+current.id > +prev.id) {
+          return current;
+        } else {
+          return prev;
+        }
+      }).id;
+
+      newState.unshift({ ...action.payload.data, id: maxId + 1 });
+
+      return newState;
     default:
       return state;
   }
