@@ -6,6 +6,9 @@ export const Main = styled("div")`
   justify-content: center;
   background: black;
   height: 100vh;
+  @media (max-width: 768px) {
+    background: #222222;
+  }
 `;
 
 export const ContentWrapper = styled("div")`
