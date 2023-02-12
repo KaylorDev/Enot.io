@@ -3,6 +3,7 @@ interface IToDoElement {
   title: string;
   text: string;
   completed: boolean;
+  color: string;
 }
 
 interface IToDoObject {

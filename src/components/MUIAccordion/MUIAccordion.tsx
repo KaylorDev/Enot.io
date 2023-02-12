@@ -27,6 +27,7 @@ type TAccordionProps = {
 
 type TMUIAccordionItemProps = {
   element: IToDoElement;
+  index: number;
 };
 
 export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
@@ -36,6 +37,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
     title: "",
     text: "",
     completed: false,
+    color: getRandomColor(),
   });
 
   const dispatch = useDispatch();
@@ -69,6 +71,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
       title: "",
       text: "",
       completed: false,
+      color: getRandomColor(),
     });
   }
 
@@ -76,12 +79,12 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
     dispatch(DeleteDate({ id: id }));
   }
 
-  function MUIAccordionItem({ element }: TMUIAccordionItemProps) {
-    const { id, title, text, completed } = element;
+  function MUIAccordionItem({ element, index }: TMUIAccordionItemProps) {
+    const { id, title, text, completed, color } = element;
 
     return (
       <div style={{ display: "flex", alignItems: "center" }}>
-        <Separator color={getRandomColor()} />
+        <Separator color={color} />
         <TitleAndText>
           <Title completed={completed}>{title}</Title>
           <Text>{text}</Text>
@@ -132,6 +135,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
           }
         >
           <div
+            style={{ marginLeft: "-10px" }}
             onClick={(e) => {
               e.stopPropagation();
               remove(toDoId);
@@ -151,8 +155,8 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
       )}
       <AccordionDetails>
         <ItemsWrapper>
-          {elements.map((element) => (
-            <MUIAccordionItem key={element.id} element={element} />
+          {elements.map((element, i) => (
+            <MUIAccordionItem key={element.id} element={element} index={i} />
           ))}
           {isCreateFormOpened ? (
             <>
