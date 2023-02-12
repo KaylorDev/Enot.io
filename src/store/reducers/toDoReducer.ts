@@ -181,7 +181,7 @@ export const CreateNewTodo: ActionCreator<{
 
 export const CreateNewDate: ActionCreator<{
   type: string;
-  payload: { data: TNewToDoObject };
+  payload: TNewToDoObject;
 }> = (payload) => {
   return { type: "CREATE_DATE", payload: payload };
 };
