@@ -3,11 +3,12 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo, useState } from "react";
-import { CreateNewDate } from "../../../store/reducers/toDoReducer";
+import { CreateDate } from "../../../store/reducers/todoReducer";
 
 export function CreateForm({ close }: { close: () => void }) {
   const todos = useSelector((state: IState) => state.todos);
   const [newDate, setNewDate] = useState("");
+
   const dates = useMemo(() => {
     return todos.map((todo) => todo.date);
   }, [todos]);
@@ -26,13 +27,13 @@ export function CreateForm({ close }: { close: () => void }) {
       elements: [],
     };
 
-    dispatch(CreateNewDate(submitData));
+    dispatch(CreateDate(submitData));
     close();
   }
 
   return (
     <Wrapper>
-      <div>Date</div>
+      Date
       <TextField
         onChange={(e) =>
           setNewDate(new Date(e.currentTarget.value).toLocaleDateString("ru"))

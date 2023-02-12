@@ -1,4 +1,5 @@
 import { ActionCreator, AnyAction } from "redux";
+import { getMaxId } from "../../misc/getMaxId";
 import { getRandomColor } from "../../misc/getRandomColor";
 
 const initialState: IToDoObject[] = [
@@ -184,21 +185,21 @@ const initialState: IToDoObject[] = [
   },
 ];
 
-export const ChangeCompleted: ActionCreator<{
+export const ChangeCompletedField: ActionCreator<{
   type: string;
   payload: { objectId: number; itemId: number };
 }> = (payload) => {
   return { type: "CHANGE_COMPLETED", payload: payload };
 };
 
-export const CreateNewTodo: ActionCreator<{
+export const CreateTodo: ActionCreator<{
   type: string;
   payload: { data: TNewToDoElement; id: number };
 }> = (payload) => {
   return { type: "CREATE_TODO", payload: payload };
 };
 
-export const CreateNewDate: ActionCreator<{
+export const CreateDate: ActionCreator<{
   type: string;
   payload: TNewToDoObject;
 }> = (payload) => {
@@ -212,7 +213,7 @@ export const DeleteDate: ActionCreator<{
   return { type: "DELETE_DATE", payload: payload };
 };
 
-export function toDoReducer(state = initialState, action: AnyAction) {
+export function todoReducer(state = initialState, action: AnyAction) {
   let newState = [...state];
 
   switch (action.type) {
@@ -235,16 +236,7 @@ export function toDoReducer(state = initialState, action: AnyAction) {
         (el) => el.id === action.payload.id
       );
 
-      const maxToDoId =
-        newState[indexToPush].elements.length > 0
-          ? newState[indexToPush].elements.reduce((prev, current) => {
-              if (+current.id > +prev.id) {
-                return current;
-              } else {
-                return prev;
-              }
-            }).id
-          : 0;
+      const maxToDoId = getMaxId(newState[indexToPush].elements);
 
       newState[indexToPush].elements.push({
         ...action.payload.data,
@@ -254,16 +246,7 @@ export function toDoReducer(state = initialState, action: AnyAction) {
       return newState;
     case "CREATE_DATE":
       newState = [...state];
-      const maxElementId =
-        newState.length > 0
-          ? newState.reduce((prev, current) => {
-              if (+current.id > +prev.id) {
-                return current;
-              } else {
-                return prev;
-              }
-            }).id
-          : 0;
+      const maxElementId = getMaxId(newState);
 
       newState.unshift({
         ...action.payload,

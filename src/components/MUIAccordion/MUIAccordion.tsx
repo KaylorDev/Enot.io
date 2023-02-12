@@ -9,10 +9,10 @@ import AddIcon from "@mui/icons-material/Add";
 import { ItemsWrapper, Separator, Title, TitleAndText, Text } from "./style";
 import { useDispatch } from "react-redux";
 import {
-  ChangeCompleted,
-  CreateNewTodo,
+  ChangeCompletedField,
+  CreateTodo,
   DeleteDate,
-} from "../../store/reducers/toDoReducer";
+} from "../../store/reducers/todoReducer";
 import { MUISwitch } from "../../ui/switch/switch";
 import { useMemo, useState } from "react";
 import { getRandomColor } from "../../misc/getRandomColor";
@@ -65,7 +65,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
     toDoId: number
   ) {
     e.preventDefault();
-    dispatch(CreateNewTodo({ data: newTodo, id: toDoId }));
+    dispatch(CreateTodo({ data: newTodo, id: toDoId }));
     setIsCreateFormOpened(false);
     setNewTodo({
       title: "",
@@ -91,7 +91,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
         </TitleAndText>
         <MUISwitch
           onChange={() =>
-            dispatch(ChangeCompleted({ objectId: toDoId, itemId: id }))
+            dispatch(ChangeCompletedField({ objectId: toDoId, itemId: id }))
           }
           checkedIcon={<CheckCircleIcon htmlColor="white" />}
           icon={<HighlightOffIcon />}

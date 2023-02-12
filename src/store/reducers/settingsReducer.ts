@@ -14,8 +14,8 @@ export function settingsReducer(state = initialState, action: AnyAction) {
   switch (action.type) {
     case "CHANGE_NEWS":
       const newState = { newsStatus: !state.newsStatus };
-      return newState;
 
+      return newState;
     default:
       return state;
   }

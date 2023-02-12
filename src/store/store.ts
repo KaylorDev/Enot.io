@@ -1,9 +1,9 @@
 import { combineReducers, legacy_createStore as createStore } from "redux";
 import { settingsReducer } from "./reducers/settingsReducer";
-import { toDoReducer } from "./reducers/toDoReducer";
+import { todoReducer } from "./reducers/todoReducer";
 
 const rootReducer = combineReducers({
-  todos: toDoReducer,
+  todos: todoReducer,
   settings: settingsReducer,
 });
 

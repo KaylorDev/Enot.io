@@ -21,7 +21,7 @@ import Modal from "@mui/material/Modal";
 import { CreateForm } from "./CreateForm/CreateForm";
 
 export function TodoList() {
-  const toDos = useSelector((state: IState) => state.todos);
+  const todos = useSelector((state: IState) => state.todos);
   const { newsStatus } = useSelector((state: IState) => state.settings);
   const [openSettings, setOpenSettings] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +30,7 @@ export function TodoList() {
   const popperRef = useRef(null);
 
   useOnClickOutside(popperRef, () => setOpenSettings(false));
-
+  console.log(news);
   useEffect(() => {
     getNews().then((response) =>
       setNews(
@@ -42,11 +42,11 @@ export function TodoList() {
 
   return (
     <Main>
-      <Modal
-        children={<CreateForm close={() => setIsModalOpen(false)} />}
-        open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      ></Modal>
+      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <>
+          <CreateForm close={() => setIsModalOpen(false)} />
+        </>
+      </Modal>
       <ContentWrapper>
         <Header>
           <HeaderTitle>To Do</HeaderTitle>
@@ -63,7 +63,7 @@ export function TodoList() {
           />
         </Header>
         <ScrollableContent>
-          {toDos.map((todo) => (
+          {todos.map((todo) => (
             <MUIAccordion
               key={todo.id}
               toDoId={todo.id}
@@ -79,9 +79,13 @@ export function TodoList() {
         >
           Add new date
         </Button>
-        {newsStatus && news && (
+        {newsStatus && (
           <Marquee>
-            <Article>{news}</Article>
+            <Article>
+              {news
+                ? news
+                : "Апи ключ поддерживает только 100 запросов за 24 часа, сори ;)"}
+            </Article>
           </Marquee>
         )}
       </ContentWrapper>
