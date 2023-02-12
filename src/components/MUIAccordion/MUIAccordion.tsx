@@ -124,7 +124,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
             <ExpandCircleDownIcon color="action" style={{ color: "white" }} />
           }
         >
-          {!opened && <Separator color="#A9A9A9" />}
+          <Separator color="#A9A9A9" />
           {title}
         </AccordionSummary>
       ) : (
