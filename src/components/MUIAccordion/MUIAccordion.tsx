@@ -5,6 +5,7 @@ import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 import { ItemsWrapper, Separator, Title, TitleAndText, Text } from "./style";
 import { useDispatch } from "react-redux";
 import {
@@ -211,7 +212,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
               color="secondary"
               onClick={() => setIsCreateFormOpened(true)}
             >
-              +
+              <AddIcon />
             </Button>
           )}
         </ItemsWrapper>
