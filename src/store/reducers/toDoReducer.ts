@@ -209,35 +209,39 @@ export function toDoReducer(state = initialState, action: AnyAction) {
         (el) => el.id === action.payload.id
       );
 
-      const maxToDoId = newState[indexToPush].elements.reduce(
-        (prev, current) => {
-          if (+current.id > +prev.id) {
-            return current;
-          } else {
-            return prev;
-          }
-        }
-      ).id;
+      const maxToDoId =
+        newState[indexToPush].elements.length > 0
+          ? newState[indexToPush].elements.reduce((prev, current) => {
+              if (+current.id > +prev.id) {
+                return current;
+              } else {
+                return prev;
+              }
+            }).id
+          : 0;
 
       newState[indexToPush].elements.push({
         ...action.payload.data,
-        id: maxToDoId !== -1 ? maxToDoId + 1 : 1,
+        id: maxToDoId + 1,
       });
 
       return newState;
     case "CREATE_DATE":
       newState = [...state];
-      const maxElementId = newState.reduce((prev, current) => {
-        if (+current.id > +prev.id) {
-          return current;
-        } else {
-          return prev;
-        }
-      }).id;
+      const maxElementId =
+        newState.length > 0
+          ? newState.reduce((prev, current) => {
+              if (+current.id > +prev.id) {
+                return current;
+              } else {
+                return prev;
+              }
+            }).id
+          : 0;
 
       newState.unshift({
         ...action.payload,
-        id: maxElementId !== -1 ? maxElementId + 1 : 1,
+        id: maxElementId + 1,
       });
 
       return newState;
