@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useMemo, useState } from "react";
 import { CreateNewDate } from "../../../store/reducers/toDoReducer";
 
-export function CreateForm() {
+export function CreateForm({ close }: { close: () => void }) {
   const todos = useSelector((state: IState) => state.todos);
   const [newDate, setNewDate] = useState("");
   const dates = useMemo(() => {
@@ -27,6 +27,7 @@ export function CreateForm() {
     };
 
     dispatch(CreateNewDate(submitData));
+    close();
   }
 
   return (

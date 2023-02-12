@@ -220,7 +220,7 @@ export function toDoReducer(state = initialState, action: AnyAction) {
         }
       }).id;
 
-      newState.unshift({ ...action.payload.data, id: maxId + 1 });
+      newState.unshift({ ...action.payload, id: maxId + 1 });
 
       return newState;
     default:

@@ -43,7 +43,7 @@ export function TodoList() {
   return (
     <Main>
       <Modal
-        children={<CreateForm />}
+        children={<CreateForm close={() => setIsModalOpen(false)} />}
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       ></Modal>
