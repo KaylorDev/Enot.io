@@ -186,6 +186,13 @@ export const CreateNewDate: ActionCreator<{
   return { type: "CREATE_DATE", payload: payload };
 };
 
+export const DeleteDate: ActionCreator<{
+  type: string;
+  payload: { id: number };
+}> = (payload) => {
+  return { type: "DELETE_DATE", payload: payload };
+};
+
 export function toDoReducer(state = initialState, action: AnyAction) {
   let newState = [...state];
 
@@ -244,6 +251,14 @@ export function toDoReducer(state = initialState, action: AnyAction) {
         id: maxElementId + 1,
       });
 
+      return newState;
+    case "DELETE_DATE":
+      newState = [...state];
+
+      const dateIndexForDelete = newState.findIndex(
+        (el) => el.id === action.payload
+      );
+      delete newState[dateIndexForDelete];
       return newState;
     default:
       return state;
