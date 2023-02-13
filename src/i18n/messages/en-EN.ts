@@ -1,0 +1,16 @@
+export const enEN: IMessages = {
+  "Create new date": "Create new date",
+  "To Do": "To Do",
+  "Show news": "Show news",
+  "Date already exists": "Date already exists",
+  "Today tasks": "Today tasks",
+  "Tomorrow tasks": "Tomorrow tasks",
+  Settings: "Settings",
+  Date: "Date",
+  Create: "Create",
+  Title: "Title",
+  Text: "Text",
+  ADD: "ADD",
+  Cancel: "Cancel",
+  Language: "Язык",
+};

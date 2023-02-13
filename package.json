@@ -10,8 +10,10 @@
     "@types/node": "^16.18.12",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "flat": "^5.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-intl": "^6.2.8",
     "react-redux": "^8.0.5",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
@@ -40,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/flat": "^5.0.2"
   }
 }

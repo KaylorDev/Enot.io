@@ -1,4 +1,4 @@
 interface IState {
   todos: IToDoObject[];
-  settings: { newsStatus: boolean };
+  settings: { newsStatus: boolean; locale: TLocale };
 }

@@ -19,6 +19,7 @@ import { getRandomInt } from "../../misc/getRandomNumber";
 import { Button } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { CreateForm } from "./CreateForm/CreateForm";
+import useTranslate from "../../hooks/useTranslate";
 
 export function TodoList() {
   const todos = useSelector((state: IState) => state.todos);
@@ -28,9 +29,10 @@ export function TodoList() {
   const [news, setNews] = useState(null);
   const settingsIconReg = useRef(null);
   const popperRef = useRef(null);
+  const translate = useTranslate();
 
   useOnClickOutside(popperRef, () => setOpenSettings(false));
-  console.log(news);
+
   useEffect(() => {
     getNews().then((response) =>
       setNews(
@@ -49,7 +51,7 @@ export function TodoList() {
       </Modal>
       <ContentWrapper>
         <Header>
-          <HeaderTitle>To Do</HeaderTitle>
+          <HeaderTitle>{translate("To Do")}</HeaderTitle>
           <SettingsIcon
             ref={settingsIconReg}
             onClick={() => setOpenSettings(!openSettings)}
@@ -77,7 +79,7 @@ export function TodoList() {
           color="secondary"
           onClick={() => setIsModalOpen(true)}
         >
-          Add new date
+          {translate("Create new date")}
         </Button>
         {newsStatus && (
           <Marquee>

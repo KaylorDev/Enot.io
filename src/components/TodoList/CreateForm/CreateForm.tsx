@@ -4,10 +4,13 @@ import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo, useState } from "react";
 import { CreateDate } from "../../../store/reducers/todoReducer";
+import useTranslate from "../../../hooks/useTranslate";
 
 export function CreateForm({ close }: { close: () => void }) {
   const todos = useSelector((state: IState) => state.todos);
   const [newDate, setNewDate] = useState("");
+  const translate = useTranslate();
+  const { locale } = useSelector((state: IState) => state.settings);
 
   const dates = useMemo(() => {
     return todos.map((todo) => todo.date);
@@ -33,7 +36,7 @@ export function CreateForm({ close }: { close: () => void }) {
 
   return (
     <Wrapper>
-      Date
+      {translate("Date")}
       <TextField
         onChange={(e) =>
           setNewDate(new Date(e.currentTarget.value).toLocaleDateString("ru"))
@@ -41,8 +44,8 @@ export function CreateForm({ close }: { close: () => void }) {
         size="small"
         type={"date"}
       />
-      {dateAlreadyExist && (
-        <div style={{ color: "red" }}>Date already exist</div>
+      {dateAlreadyExist && locale && (
+        <div style={{ color: "red" }}>{translate("Date already exists")}</div>
       )}
       <Button
         variant="contained"
@@ -50,7 +53,7 @@ export function CreateForm({ close }: { close: () => void }) {
         onClick={(e) => create(e)}
         disabled={!Boolean(newDate) || dateAlreadyExist}
       >
-        Create
+        {translate("Create")}
       </Button>
     </Wrapper>
   );

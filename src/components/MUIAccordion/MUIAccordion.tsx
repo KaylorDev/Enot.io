@@ -18,6 +18,7 @@ import { useMemo, useState } from "react";
 import { getRandomColor } from "../../misc/getRandomColor";
 import { CheckboxWithLabel } from "../../ui/сheckboxes/CheckboxWithLabel";
 import { Button, TextField } from "@mui/material";
+import useTranslate from "../../hooks/useTranslate";
 
 type TAccordionProps = {
   toDoId: number;
@@ -41,9 +42,11 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
   });
 
   const dispatch = useDispatch();
+  const translate = useTranslate();
 
   const title = useMemo(() => {
     return getTitleByDate(date);
+    // eslint-disable-next-line
   }, [date]);
 
   function getTitleByDate(date: string) {
@@ -54,10 +57,10 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
       dateObj.getTime() - dateOffset
     ).toLocaleDateString();
 
-    if (date === today) return "Today tasks";
-    if (tomorrow === date) return "Tomorrow tasks";
+    if (date === today) return translate("Today tasks");
+    if (tomorrow === date) return translate("Tomorrow tasks");
 
-    return `${date} tasks`;
+    return date;
   }
 
   function create(
@@ -79,7 +82,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
     dispatch(DeleteDate({ id: id }));
   }
 
-  function MUIAccordionItem({ element, index }: TMUIAccordionItemProps) {
+  function MUIAccordionItem({ element }: TMUIAccordionItemProps) {
     const { id, title, text, completed, color } = element;
 
     return (
@@ -163,7 +166,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
               <TextField
                 color="secondary"
                 variant="standard"
-                label="Title"
+                label={translate("Title")}
                 sx={{
                   "& input": { color: "white" },
                   "& label": { color: "white" },
@@ -177,7 +180,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
               <TextField
                 color="secondary"
                 variant="standard"
-                label="Text"
+                label={translate("Text")}
                 sx={{
                   "& input": { color: "white" },
                   "& label": { color: "white" },
@@ -196,7 +199,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
                   color="secondary"
                   onClick={(e) => create(e, toDoId)}
                 >
-                  ADD
+                  {translate("ADD")}
                 </Button>
                 <Button
                   variant="contained"
@@ -205,7 +208,7 @@ export function MUIAccordion({ date, elements, toDoId }: TAccordionProps) {
                   color="secondary"
                   onClick={() => setIsCreateFormOpened(false)}
                 >
-                  CANCEL
+                  {translate("Cancel")}
                 </Button>
               </div>
             </>
