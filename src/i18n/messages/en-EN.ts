@@ -12,5 +12,5 @@ export const enEN: IMessages = {
   Text: "Text",
   ADD: "ADD",
   Cancel: "Cancel",
-  Language: "Язык",
+  Language: "Language",
 };
