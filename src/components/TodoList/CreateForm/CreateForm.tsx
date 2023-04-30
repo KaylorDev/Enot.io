@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useMemo, useState } from "react";
-import { CreateDate } from "../../../store/reducers/todoReducer";
+import { CreateDate } from "../../../store/reducers/toDoReducer";
 import useTranslate from "../../../hooks/useTranslate";
 
 export function CreateForm({ close }: { close: () => void }) {

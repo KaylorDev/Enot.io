@@ -12,7 +12,7 @@ import {
   ChangeCompletedField,
   CreateTodo,
   DeleteDate,
-} from "../../store/reducers/todoReducer";
+} from "../../store/reducers/toDoReducer";
 import { MUISwitch } from "../../ui/switch/switch";
 import { useMemo, useState } from "react";
 import { getRandomColor } from "../../misc/getRandomColor";
